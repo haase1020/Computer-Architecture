@@ -1,0 +1,62 @@
+##this was added from Tk video (mandi added)
+
+______________________
+Base 10 Decimal
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+_________________________
+Base 2 Binary
+
+  0
+  1
+ 10 (means 1 '2' and 0 '1's)
+ 11
+100
+
+
++-------- 128s place
+|+------- 64s place
+||+------ 32s place
+|||+----- 16s place
+||||+---- 8s place
+|||||+--- 4s place
+||||||+-- 2s place
+|||||||+- 1s place
+||||||||
+01010110
+    1111
+       
+64 + 16 + 4 + 2 = 86 decimal == 1010110 # it is ok to take off leading 0
+8 +4 + 2+ 1 = 15 decimal = 1111 binary
+
+
+______________________
+go from decimal to binary
+67 decimal.....
+64 + 2 + 1 = 1000011 
+
+33 decimal....
+32 + 1 = 100001
+
+______________________
+hexidecimal
+10100011
+1010 0011 (split into 2 nibbles - each 4 bits)
+  A     3
+  A3 == 10100011
+
+  C7 hex is what in binary?
+  (C hex is 12 decimal) 
+  C         7
+  1100      0111
+  C7 hex == 11000111 binary

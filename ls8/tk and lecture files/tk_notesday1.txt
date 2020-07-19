@@ -1,0 +1,59 @@
+## these are notes from day 1 from the TK
+
+* CPU word: the natural size of a piece of data with which the CPU can interact. Usually written down in the bit "size" of the CPU, i.e. "This
+is a 64-bit CPU".
+* Random Access memory(RAM): your computer needs a place to keep track of variables in run your code. RAM is where these variables are stored. 
+    ** imagine RAM is a large bookcase with billions of shelves. Each shelf has a number (like array index). The numer of the shelf is the address.
+    ** each shelf in RAM can hold 8 bits (1 byte)
+* Memory Controller: middleman between computer processer and RAM
+    ** can directly access any address in RAM. 
+    ** can jump between addresses 1 and 10,000 very quickly.
+* CPU instruction: a byte of sequence of bytes in RAM that the computer knows how to interpret and perform actions based on. 
+* CPU register: THe CPU has a fixed, small numberr of speical storage locations built in. Usually there are 16 or 32 of thse, and they have set names, such as R0, R1, R2, etc.
+    ** think of them as the variables at your disposal to use with the various instructions. 
+* CPU clock: (ex - your CPU is 3.2 GHz) It means the number of times per second the CPU does some processing.
+* System bus: a collection of wires on the motherboard between the CPU, memoery, and peripherals. 
+    ** memory bus connects the CPU to RAM. 
+    ** the I/O bus connects the CPU to peripherals.
+    * the control bus allow the CPU to precisely say what it wants to do on the bus, e.g. read of write a word or byte. 
+* Concurrency and Parallelism: the CPU can do multiple things at one through a variety of mechanisms, including having multiple cores, or
+other features such as pipelining or hyperthreading (both out of scope of this course).
+
+Challenge: (from TK)
+Q: How long does it take the number of transistors on a CPU to double? What is the common name for this rule of thumb?
+    A: number of transistors on a microship doubles about every 2 years, though the cost of computers is halved (Moore's Law - should reach limit in 2020s).
+Q: Why are registers necessary? Why not just use RAM?
+    A: Because RAM is VERY slow. Registers are placed inside the CPU, right to the ALU so signals can travel almost right away. They are also 
+    the fastest memoery type but they take significant space so we can have only a limited number of them. increasing the number of registers increases:
+    * die size
+    * distance needs for signals to travel
+    * more work to save the context whe switching between threads
+Q: Why is cache useful?
+    A: caches are useful becaue they can increase the speed of the average memory access, and they do so without taking up as much physical space as the lower elements of the 
+    memory hierarchy. Caches are particulary useful when two or more components need to exchange data - transfer speed are much faster when using caches, 
+    and the transfer can be done without using the main memory.
+Q: What is a CPU word?
+    A: a word is a fixed-size piece of data processed as a unit by the processor. The word size is defined in the instruction set architecture. 
+    The term word is used foa a small group fo bits that are handled simultaneously by processor of a particular architecture. 
+    A woder is stored in memory one byte at a time. 
+Q: What is the system bus and how wide is it?
+    A: a pathway composed of cables and connectors used to carry data between a computer microprocessor and the main memeory. The system bus works
+    by combining the functions of the three main buses: the data, address, and control buses. 
+Q: Describe the pins that are on a CPU chip
+    A: Pins are the wires poking out of the surface of the CPU chip. They fit into a socket on the motherboard or backplane that the CPU is attached to. 
+    They form the electrical connection between the CPU and the outside world. The number of pins does not mean anything in particular.
+    Pins on CPU chips: address and data pins, interrupts, bus control, cache control, status.
+Q: What is a CPU instruction?
+    A: Search Results
+Featured snippet from the web
+An instruction set (used in what is called ISA or Instruction Set Architecture) is code that the computer processor (CPU) can understand. 
+The language is 1s and 0s, or machine language. It contains instructions or tasks that control the movement of bits and bytes within the processor.
+*********************************************************************************
+* Base: the base of a number. 1s place, 10s place, 100s place
+* Binary: base-2, 1s place, 2s place, 4s place, 8s place, 16s place etc.
+    1 2 4 8 16 32 64 128 256 512 1024
+    2048 4096 8192 16384 32768 65536
+* Hexidecimal: base-16 0-9 and A,B,C,D,E,F
+    0 1 2 3 4 5 6 7 8 9 A B C D E F 10
+     there are an even number of binary bits per hex digit: 4 bits per hex digit
+* Octal (DON'T USE): base-8
