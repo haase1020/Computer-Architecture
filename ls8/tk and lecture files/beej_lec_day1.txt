@@ -1,0 +1,50 @@
+***Python commands***
+
+ob1000
+# returns 8
+
+a= 0b1000
+bin(a)
+# returns 0b1000
+
+hex(a)
+# returns 0x8
+
+s = '1000'
+int(s, 2) # returns int of s value in base 2 (could put int(s,10) for decimal)
+# returns 8
+
+bin(8)
+# returns 0b1000
+f'{8:b}'
+# returns '1000'
+f'{8:08b}'
+# returns '00001000' => an 8-bit binary string
+
+***practical uses for hex***
+CSS colors
+    RR GG BB
+#   FF 00 AB
+
+***conversions***
+0b0011 == 0x??? (what is this in hex?) A: =3
+0b1111 == 0xF =. this means 4 bits equals 1 hex digit
+
+ex: (convert from binary to hex)
+** each 4 bits (nibble) is one hex digit!!**
+0b0001001011011110010111010101
+0b 0001 0010 1101 1110 0101 1101 0101
+0x  1    2    D     E    5    D    5
+0x12DE5D5
+
+ex: 0x 1 2 3 A B C (hex to binary)
+0b    0001 0010 0011 1010 1011 1100 
+0b000100100011101010111100 
+
+
+***********************************************************
+
+HINTS FOR DAY1 Assignment:
+1. you can ignore asm directory (it has stuff for the stretch)
+2. stuff talking about interrupts you can ignore (stretch)
+3. ls8, FAQ.md, LS8.spec, readme in main directory, ls8 directory readme(for whole week)

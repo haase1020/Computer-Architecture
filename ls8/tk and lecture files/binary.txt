@@ -1,6 +1,10 @@
 ##this was added from Tk video (mandi added)
 
+Number Bases (number of digits that are used)
+base 64: 0-9 A-Z a-z + /
+base is number of digits
 ______________________
+
 Base 10 Decimal
 0
 1
@@ -12,17 +16,22 @@ Base 10 Decimal
 7
 8
 9
-10
+10 (next power of the base) 10^0=1
+                            10^1=10
+                            10^2=100
+                            10^3=1000
 
 _________________________
-Base 2 Binary
+Base 2 Binary (0b)
 
-  0
-  1
- 10 (means 1 '2' and 0 '1's)
- 11
-100
+2^0 =1
+2^1=2
+2^2=4
+2^3=8
+2^4=16 10000==16
 
+byte = a number with 8 binary digits("binary digit"="bit")
+the binary system goes on forever
 
 +-------- 128s place
 |+------- 64s place
@@ -49,7 +58,7 @@ go from decimal to binary
 32 + 1 = 100001
 
 ______________________
-hexidecimal
+hexidecimal base 16 ("hex") 0-f  (0x)
 10100011
 1010 0011 (split into 2 nibbles - each 4 bits)
   A     3
