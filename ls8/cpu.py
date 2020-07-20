@@ -80,9 +80,9 @@ class CPU:
         PRN = 0b01000111
         HLT = 0b00000001
 
-        halted = False
+        running = True
 
-        while not halted:
+        while running:
             instruction = self.ram_read(self.pc)
             operand_a = self.ram_read(self.pc + 1)
             operand_b = self.ram_read(self.pc + 2)
@@ -99,7 +99,7 @@ class CPU:
 
             elif instruction == HLT:
                 # halt the CPU (and exit the emulator)
-                halted = True
+                running = False
 
             else:
                 print(
