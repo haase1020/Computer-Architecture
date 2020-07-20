@@ -1,0 +1,20 @@
+python is basically written in C language.
+
+decimal (base 10)
+binary (base 2)
+
+hexidecimal (base 16)
+convert deimal to hexidecimal
+54/16 = 3.?
+remainder 6 == 0x36
+
+hexidecimal to binary
+convert in halves
+0b1111 == F
+0b10101100 == 0xAC
+
+decimal --> hex --> binary (easy way to convert)
+
+decimal to binary
+
+3 /2 = 1, remainder 1

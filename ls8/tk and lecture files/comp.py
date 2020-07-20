@@ -22,11 +22,11 @@ memory = [
     PRINT_BEEJ,
     PRINT_BEEJ,
     SAVE_REG,  # SAVE_REG, R1, 37 (3 byte instruction)
-    1, # <-- index into the register array
-    37, # <-- value that we want to store there
+    1,  # <-- index into the register array
+    37,  # <-- value that we want to store there
     SAVE_REG,
-    2, # <-- index into the register array
-    11, # <-- value that we want to store there
+    2,  # <-- index into the register array
+    11,  # <-- value that we want to store there
     ADD,  # ADD R1, R2 register[1] += register[2]
     1,
     2,
@@ -41,7 +41,7 @@ pc = 0  # Program Counter, index of the current instruction
 running = True
 
 while running:
-    ir = memory[pc]  # instruction register
+    ir = memory[pc]  # instruction register # pointer in array
 
     if ir == PRINT_BEEJ:
         print("Beej")

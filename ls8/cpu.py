@@ -8,9 +8,9 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
+        self.pc = 0
         self.ram = [0] * 256  # hold 256 bytes of memory
         self.reg = [0] * 8  # hold 8 general-purpose registers
-        self.pc = 0
         self.sp = 7  # stack pointer
         self.fl = 0b00000000  # flags register is a special register
 
@@ -28,7 +28,6 @@ class CPU:
         address = 0
 
         # For now, we've just hardcoded a program:
-        #  x = [0] * 25  # x is a list of 25 zeroes
 
         program = [
             # From print8.ls8
@@ -41,8 +40,10 @@ class CPU:
         ]
 
         for instruction in program:
+
+            # address is index into memory array
             self.ram[address] = instruction
-            # print("instruction", instruction)
+            print("instruction", instruction)
             address += 1
 
     def alu(self, op, reg_a, reg_b):
@@ -99,9 +100,9 @@ class CPU:
 
             elif instruction == HLT:
                 # halt the CPU (and exit the emulator)
-                running = False
+                running = False  # get out of while loop
 
             else:
                 print(
                     F" unknown instruction {instruction} at address {self.pc}")
-                sys.exit()
+                sys.exit()  # halts the python program wherever it is
