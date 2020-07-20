@@ -48,3 +48,4 @@ HINTS FOR DAY1 Assignment:
 1. you can ignore asm directory (it has stuff for the stretch)
 2. stuff talking about interrupts you can ignore (stretch)
 3. ls8, FAQ.md, LS8.spec, readme in main directory, ls8 directory readme(for whole week)
+4. understanding should take 1-2 hours (take notes!)
