@@ -17,26 +17,29 @@ SAVE_REG = 3  # SAVE_REG R1, 37  register[1] = 37
 PRINT_REG = 4  # PRINT_REG R1   print(register[1])
 ADD = 5
 
-memory = [
-    PRINT_BEEJ,
-    PRINT_BEEJ,
-    PRINT_BEEJ,
-    SAVE_REG,  # SAVE_REG, R1, 37 (3 byte instruction)
-    1,  # <-- index into the register array
-    37,  # <-- value that we want to store there
-    SAVE_REG,
-    2,  # <-- index into the register array
-    11,  # <-- value that we want to store there
-    ADD,  # ADD R1, R2 register[1] += register[2]
-    1,
-    2,
-    PRINT_REG,  # PRINT_REG, R1 (2 byte instruction)
-    1,
-    HALT,
-]
+memory = [0] * 256
 
 # 8 general purpose registers, like variables, R), R!, R2....R7
 register = [0] * 8
+# -- load program --
+
+with open("comp.ls8") as f:
+    address = 0
+
+    for line in f:
+        line = line.split('#')
+        try:
+            v = int(line[0])
+        except ValueError:
+            continue
+        print(v)
+
+sys.exit(0)
+
+
+# -- run loop--
+
+
 pc = 0  # Program Counter, index of the current instruction
 running = True
 
