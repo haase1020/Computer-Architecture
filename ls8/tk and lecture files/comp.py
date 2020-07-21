@@ -22,19 +22,21 @@ memory = [0] * 256
 # 8 general purpose registers, like variables, R), R!, R2....R7
 register = [0] * 8
 # -- load program --
+filename = sys.argv[1]
+# TODO: error checking on sys.argv
 
-with open("comp.ls8") as f:
-    address = 0
+with open(filename) as f:
 
-    for line in f:
+    # address is a temp variable; a loading construct. will later use pc
+    for address, line in enumerate(f):
+
         line = line.split('#')
         try:
-            v = int(line[0])
+            v = int(line[0], 10)  # 2nd arg is num base
         except ValueError:
             continue
-        print(v)
 
-sys.exit(0)
+        memory[address] = v
 
 
 # -- run loop--
@@ -45,6 +47,10 @@ running = True
 
 while running:
     ir = memory[pc]  # instruction register # pointer in array
+
+    # convert if/ elif statement to branch_table
+    # f = branch_table[ir]
+    # f()
 
     if ir == PRINT_BEEJ:
         print("Beej")
