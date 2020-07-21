@@ -44,6 +44,7 @@ class CPU:
         if op == "ADD":
             self.reg[reg_a] += self.reg[reg_b]
         # elif op == "SUB": etc
+
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -72,6 +73,7 @@ class CPU:
         LDI = 0b10000010
         PRN = 0b01000111
         HLT = 0b00000001
+        MUL = 0b10100010
 
         running = True
 
@@ -84,11 +86,18 @@ class CPU:
                 # set value of a register to an integer
                 self.reg[operand_a] = operand_b
                 self.pc += 3
+
             elif instruction == PRN:
                 # Print numeric value stored in a given register
                 # print to the console the demial integer value that is stored in a given register
                 print(self.reg[operand_a])
                 self.pc += 2
+
+            elif instruction == MUL:
+                # multiply the values in two registers and the result in register A.
+                result = self.reg[operand_a] * self.reg[operand_b]
+                print("multiply result", result)
+                self.pc += 3
 
             elif instruction == HLT:
                 # halt the CPU (and exit the emulator)
