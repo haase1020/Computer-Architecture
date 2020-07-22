@@ -18,6 +18,9 @@ PRINT_REG = 4  # PRINT_REG R1   print(register[1])
 ADD = 5
 PUSH = 6
 POP = 7
+CALL = 9
+RET = 9
+
 
 memory = [0] * 256
 
@@ -88,6 +91,25 @@ while running:
         # store it
         memory[top_of_stack_addr] = value
         pc += 2
+
+    elif ir == POP:
+        reg_num = memory[pc + 1]
+        register[reg_num] = memory[register[SP]]
+        register[SP] += 1
+        pc += 2
+
+    elif ir == CALL:
+        # takes in register/ calls a subroutine(function) at the address stored in the register
+        # total instruction length of call will always be PC + 2
+        return_addr = pc + 2
+        # push on the stack
+        register[SP] -= 1
+        memory[register[SP]] = return_addr
+        # get the address to call
+        reg_num = memory[pc + 1]
+        subroutine_addr = register[reg_num]
+        # call it
+        pc = subroutine_addr
 
     elif ir == HALT:
         running = False

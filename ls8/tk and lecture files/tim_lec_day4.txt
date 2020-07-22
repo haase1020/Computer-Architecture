@@ -1,0 +1,74 @@
+From Beej's lecture CS 29:
+
+register = [0] * 7
+
+def foo():
+    print(1)
+    register[0] = 12
+
+def bar():
+    print(2)
+    foo()
+    print(3)
+    register[0] = 99
+
+register[1] = 55
+register[2] = 99
+bar()
+print(register[0])
+
+print("done")    <--- PC
+
+the order the lines run is:
+9
+5
+6
+2
+7
+11
+
+** how do we know we go back to line 7? The CALL STACK! the computer needs to remember a memory address to return to that line in the function
+** when you call a function:
+    push the return address on the Stack
+    set the pc to the address of the subroutine
+** when we return:
+    pop the return address off the Stackstore it in the pc
+
+Stack
+------
+
+
+
+
+_________________________
+When calling, we can use the following for arguments and return values:
+
+registers (commonly used for both)
+memory
+stack (commonly used for arguments)
+
+
+
+stack and calls in higher level languages
+----------------------------------------------------
+
+def mult2(x, y):
+    z = x * y
+    return z
+def main():
+    a = 2
+    b = mult2(a, 7)
+    print(b)
+
+main()
+print("done")
+
+Stack
+--------------
+
+
+Interrupts
+--------------
+
+how the CPU knows that a peripheral needs attention
+on the LS-8 only one interrupt can happen at a time

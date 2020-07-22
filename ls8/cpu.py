@@ -70,12 +70,16 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        LDI = 0b10000010
-        PRN = 0b01000111
-        HLT = 0b00000001
+        LDI = 0b10000010  # Set the value of a register to an integer.
+        PRN = 0b01000111  # Print numeric value stored in the given register.
+        HLT = 0b00000001  # Halt the CPU (and exit the emulator).
+        ADD = 0b10100000
         MUL = 0b10100010
-        PUSH = 0b01000101
+        PUSH = 0b01000101  # Push the value in the given register on the stack
+        # Pop the value at the top of the stack into the given register.
         POP = 0b01000110
+        CALL = 0b01010000
+        RET = 0b00010001
 
         running = True
 
@@ -95,10 +99,14 @@ class CPU:
                 print(self.reg[operand_a])
                 self.pc += 2
 
+            elif instruction == ADD:
+                self.reg[operand_a] += self.reg[operand_b]
+                self.pc += 3
+
             elif instruction == MUL:
                 # multiply the values in two registers and the result in register A.
                 result = self.reg[operand_a] * self.reg[operand_b]
-                # print("multiply result", result)
+                print("multiply result", result)
                 self.pc += 3
 
             elif instruction == PUSH:
@@ -119,6 +127,26 @@ class CPU:
                 # increment the SP
                 self.reg[self.sp] += 1
                 self.pc += 2
+
+            elif instruction == CALL:
+                return_address = self.pc + 2
+                # push if on the stack
+                self.reg[self.sp] -= 1
+                top_of_stack_add = self.reg[self.sp]
+                self.ram[top_of_stack_add] = return_address
+                # set the PC to the subroutine address
+                subroutine_address = self.reg[operand_a]
+                self.pc = subroutine_address
+
+            elif instruction == RET:
+                # pop the return address off the stack
+                top_of_stack_add = self.reg[self.sp]
+                return_address = self.ram[top_of_stack_add]
+                self.reg[self.sp] += 1
+                # store in the PC
+                self.pc = return_address
+
+                # SPRINT CHALLENGE is conditional jumps: need this to be Turing Complete
 
             elif instruction == HLT:
                 # halt the CPU (and exit the emulator)
