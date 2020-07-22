@@ -16,6 +16,8 @@ HALT = 2
 SAVE_REG = 3  # SAVE_REG R1, 37  register[1] = 37
 PRINT_REG = 4  # PRINT_REG R1   print(register[1])
 ADD = 5
+PUSH = 6
+POP = 7
 
 memory = [0] * 256
 
@@ -43,6 +45,8 @@ with open(filename) as f:
 
 
 pc = 0  # Program Counter, index of the current instruction
+SP = 7  # stack pointer
+register[SP] = 0xf4   # this is the stack pointer
 running = True
 
 while running:
@@ -72,6 +76,18 @@ while running:
         reg_num2 = memory[pc + 2]
         register[reg_num1] += register[reg_num2]
         pc += 3
+
+    elif ir == PUSH:  # PUSH R2
+        # decrement SP
+        register[SP] -= 1
+        # get the value we want to store from the register
+        reg_num = memory[pc + 1]
+        value = register[reg_num]  # <-- this is the value that we want to push
+        # figure out where to store it
+        top_of_stack_addr = register[SP]
+        # store it
+        memory[top_of_stack_addr] = value
+        pc += 2
 
     elif ir == HALT:
         running = False

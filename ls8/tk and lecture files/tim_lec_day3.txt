@@ -1,0 +1,47 @@
+Stack
+------
+---> starts at top and grows downwards towards address value of 0.
+
+Hardware:
+
+PUSH put something on the Stack
+POP take something off the Stack
+
+programmers can add these in software if they need them:
+
+PEEK look at the item on top of the Stack
+IS_EMPTY is the stack empty or not
+
+* List -- a place to store the data that we push, RAM or registers
+* The location in the list of the top of the stack
+
+Let's:
+* store the stack data in RAM
+* use R7 to hold the address of the top of the stack
+    * gets initialized to 0xf4 when the machine boots up
+
+
+Not the LS-8, but a stack all the same:
+  v
+0 1 2 3 4 5 6 7 8 index
+5 7 2 0 0 0 0 0 0 value
+
+PUSH 5
+PUSH 7
+PUSH 2
+POP       # this popped 2 off since it was the last item pushed on
+
+** memory is the same as RAM
+
+Push:
+1. decrement the SP (R7)
+2. copy the value in the given register to the address points to by SP. 
+3. the stack grows downwards!! Imagine plates stacked on the ceiling, when you add on it goes down towards the floor.
+
+Pop:
+1. copy the value from memory at the address pointed to by SP into the register. (40 minutes into video) 
+2. increment the sp.
+
+R[7] == F2
+RAM[F2] == 32
+RAM[R[7]] == 32   * look up address in register, then go to RAM
