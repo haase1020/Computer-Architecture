@@ -34,7 +34,7 @@ class CPU:
                 if string_value == '':
                     continue
                 binary_value = int(string_value, 2)
-                print(binary_value)
+                # print(binary_value)
                 self.ram[address] = binary_value
                 address += 1
 
@@ -74,6 +74,8 @@ class CPU:
         PRN = 0b01000111
         HLT = 0b00000001
         MUL = 0b10100010
+        PUSH = 0b01000101
+        POP = 0b01000110
 
         running = True
 
@@ -96,8 +98,27 @@ class CPU:
             elif instruction == MUL:
                 # multiply the values in two registers and the result in register A.
                 result = self.reg[operand_a] * self.reg[operand_b]
-                print("multiply result", result)
+                # print("multiply result", result)
                 self.pc += 3
+
+            elif instruction == PUSH:
+                # push the value in the given register on the stack
+                val = self.reg[operand_a]
+                # decrement the SP
+                self.reg[self.sp] -= 1
+                # store value in memory at SP
+                self.ram[self.reg[self.sp]] = val
+                self.pc += 2
+
+            elif instruction == POP:
+                # get the register number
+                # get value out of the register
+                val = self.ram[self.reg[self.sp]]
+                # store value in memeroy at SP
+                self.reg[operand_a] = val
+                # increment the SP
+                self.reg[self.sp] += 1
+                self.pc += 2
 
             elif instruction == HLT:
                 # halt the CPU (and exit the emulator)
