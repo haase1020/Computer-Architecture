@@ -1,4 +1,5 @@
 
+
 import sys
 PRINT_TIM = 0b00000001
 HALT = 0b10  # 2
@@ -6,28 +7,8 @@ PRINT_NUM = 0b00000011  # opcode 3
 SAVE = 0b100
 PRINT_REG = 0b101    # opcode 5
 ADD = 0b110
-
-
-# registers[2] = registers[2] + registers[3]
-
-# memory = [
-#     PRINT_TIM,
-#     PRINT_TIM,
-#     PRINT_NUM,
-#     42,
-#     SAVE,
-#     2,       # register to put it in
-#     99,      # number to save
-#     SAVE,
-#     3,      # register to save in
-#     1,      # number to save
-#     ADD,
-#     2,   # register to look at, and save stuff in
-#     3,   # register to look at
-#     PRINT_REG,
-#     2,       # register to look at
-#     HALT,
-# #           ]
+PUSH = 0b111
+POP = 0b1000   # opcode 8
 
 
 memory = [0] * 256
@@ -66,6 +47,9 @@ load_memory(file_name)
 
 # register aka memory
 registers = [0] * 8
+
+registers[7] = 0xA
+
 # [0,0,99,0,0,0,0,0]
 # R0-R7
 
@@ -103,5 +87,37 @@ while running:
         sec_reg = memory[pc + 2]
         registers[first_reg] = registers[first_reg] + registers[sec_reg]
         pc += 2
+
+    if command == PUSH:
+        # decrement the stack pointer
+        registers[7] -= 1
+
+        # get the register number
+        reg = memory[pc + 1]
+        # get a value from the given register
+        value = registers[reg]
+
+        # put the value at the stack pointer address
+        sp = registers[7]
+        memory[sp] = value
+
+        pc += 1
+
+    if command == POP:
+        # get the stack pointer (where do we look?)
+        sp = registers[7]
+
+        # get register number to put value in
+        reg = memory[pc + 1]
+
+        # use stack pointer to get the value
+        value = memory[sp]
+        # put the value into the given register
+        registers[reg] = value
+        # increment our stack pointer
+        registers[7] += 1
+
+        # increment our program counter
+        pc += 1
 
     pc += 1
