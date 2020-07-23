@@ -9,7 +9,8 @@ PRINT_REG = 0b101    # opcode 5
 ADD = 0b110
 PUSH = 0b111
 POP = 0b1000   # opcode 8
-
+CALL = 0b1001  # opcode 9
+RET = 0b1010
 
 memory = [0] * 256
 
@@ -48,10 +49,21 @@ load_memory(file_name)
 # register aka memory
 registers = [0] * 8
 
-registers[7] = 0xA
+registers[7] = 0xF4
 
 # [0,0,99,0,0,0,0,0]
 # R0-R7
+
+
+# CALL:
+# tell CALL which register we put address in
+# push commandy after CALL onto the stack
+# then look at register, jump to that address
+
+# run whatever command are there
+
+# RET:
+# pop off the stack, and jump!
 
 
 pc = 0  # program counter
@@ -61,32 +73,32 @@ while running:
 
     if command == PRINT_TIM:
         print("Tim!")
-
+        pc += 1
     if command == HALT:
         running = False
 
     if command == PRINT_NUM:
         num_to_print = memory[pc + 1]
         print(num_to_print)
-        pc += 1
+        pc += 2
 
     if command == SAVE:
         reg = memory[pc + 1]
         num_to_save = memory[pc + 2]
         registers[reg] = num_to_save
 
-        pc += 2
+        pc += 3
 
     if command == PRINT_REG:
         reg_index = memory[pc + 1]
         print(registers[reg_index])
-        pc += 1
+        pc += 2
 
     if command == ADD:
         first_reg = memory[pc + 1]
         sec_reg = memory[pc + 2]
         registers[first_reg] = registers[first_reg] + registers[sec_reg]
-        pc += 2
+        pc += 3
 
     if command == PUSH:
         # decrement the stack pointer
@@ -101,7 +113,7 @@ while running:
         sp = registers[7]
         memory[sp] = value
 
-        pc += 1
+        pc += 2
 
     if command == POP:
         # get the stack pointer (where do we look?)
@@ -118,6 +130,27 @@ while running:
         registers[7] += 1
 
         # increment our program counter
-        pc += 1
+        pc += 2
 
-    pc += 1
+    if command == CALL:
+        # get register number
+        reg = memory[pc + 1]
+        # get the address to jump to, from the reg
+        address = registers[reg]
+        # push command after CALL onto the stack
+        return_address = pc + 2
+        # decrement stack pointer
+        registers[7] -= 1
+        sp = registers[7]
+        # put return address on the stack
+        memory[sp] = return_address
+        # then look at register, jump to that address
+        pc = address
+
+    if command == RET:
+        # pop the return address off the stack
+        sp = registers[7]
+        return_address = memory[sp]
+        registers[7] += 1
+        # go to return address: set the PC to return address
+        pc = return_address

@@ -9,7 +9,7 @@ class CPU:
     def __init__(self):
         """Construct a new CPU."""
         self.pc = 0
-        self.ram = [0] * 256  # hold 256 bytes of memory
+        self.ram = [0] * 256  # hold 256 bytes of memory 8 bit 2^8 = 256
         self.reg = [0] * 8  # hold 8 general-purpose registers
         self.sp = 7  # stack pointer
         self.fl = 0b00000000  # flags register is a special register

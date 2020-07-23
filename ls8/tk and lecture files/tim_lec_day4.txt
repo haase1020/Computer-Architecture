@@ -72,3 +72,27 @@ Interrupts
 
 how the CPU knows that a peripheral needs attention
 on the LS-8 only one interrupt can happen at a time
+
+_______________________________________________________________
+From Tim's lecture:
+
+Alan Turing - most basic idea of a computer (head and tape)
+Turing complete: 
+* we need comparisons in order to be Turing complete for our program
+
+FF: 00
+FE: 00
+.
+.
+.
+F4: [00000000]
+F3: [00000000]
+
+     <-------Data Bus-------> (carries the data to be stored)
+     CPU                   RAM
+     <------Address Bus----->  (just goes one way and carries the location where the data should be stored)
+
+     11111111 --> 8 wires
+
+
+* Subroutine --> another name for a function
