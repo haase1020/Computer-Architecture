@@ -161,6 +161,9 @@ class CPU:
                 self.pc = return_address
 
             elif instruction == CMP:
+                # Compare the value of registerA and registerB
+                # if equal, set E flag to 1, otherwise to 0
+
                 if self.reg[operand_a] == self.reg[operand_b]:
                     self.fl = 1
                 else:
@@ -168,15 +171,19 @@ class CPU:
                 self.pc += 3
 
             elif instruction == JMP:
+                # jump to the address stored in the given register
+                # set the PC to the address stored in the given register
                 self.pc = self.reg[operand_a]
 
             elif instruction == JEQ:
+                # if equal flag is set (true), jump to the address sored in the given register
                 if self.fl == 1:
                     self.pc = self.reg[operand_a]
                 else:
                     self.pc += 2
 
             elif instruction == JNE:
+                # if E flag is clear (false, 0) jump to the address stored in the given
                 if self.fl == 0:
                     self.pc = self.reg[operand_a]
                 else:
