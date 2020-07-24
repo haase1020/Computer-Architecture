@@ -11,8 +11,9 @@ class CPU:
         self.pc = 0
         self.ram = [0] * 256  # hold 256 bytes of memory 8 bit 2^8 = 256
         self.reg = [0] * 8  # hold 8 general-purpose registers
-        self.sp = 7  # stack pointer
+        self.sp = 7  # stack pointer/ sets to value F4
         self.fl = 0b00000000  # flags register is a special register
+        self.reg[self.sp] = 0b11110100  # 0xf4
 
     def ram_read(self, address):
         # should accept the address to read and return the value stored there.
@@ -80,6 +81,12 @@ class CPU:
         POP = 0b01000110
         CALL = 0b01010000
         RET = 0b00010001
+        CMP = 0b10100111  # compare the values in two registers
+        JMP = 0b01010100  # jump to the address stored in the given register
+        # if 'equal' flag is set (true), jump to the address stored in given register
+        JEQ = 0b01010101
+        # if 'E' flag is clear (false, 0) jump to the address stored in the given register
+        JNE = 0b01010110
 
         running = True
 
@@ -105,8 +112,9 @@ class CPU:
 
             elif instruction == MUL:
                 # multiply the values in two registers and the result in register A.
-                result = self.reg[operand_a] * self.reg[operand_b]
-                print("multiply result", result)
+                self.reg[operand_a] *= self.reg[operand_b]
+                # result = self.reg[operand_a] * self.reg[operand_b]
+                # print("multiply result", result)
                 self.pc += 3
 
             elif instruction == PUSH:
@@ -129,10 +137,13 @@ class CPU:
                 self.pc += 2
 
             elif instruction == CALL:
+                # push command after CALL onto the stack
                 return_address = self.pc + 2
                 # push if on the stack
+                # decrement stack pointer
                 self.reg[self.sp] -= 1
                 top_of_stack_add = self.reg[self.sp]
+                # put return address on the stack
                 self.ram[top_of_stack_add] = return_address
                 # set the PC to the subroutine address
                 subroutine_address = self.reg[operand_a]
@@ -141,12 +152,35 @@ class CPU:
             elif instruction == RET:
                 # pop the return address off the stack
                 top_of_stack_add = self.reg[self.sp]
+                print("sp", self.sp)
+                print("reg", self.reg)
+                print("top of stack add", top_of_stack_add)
                 return_address = self.ram[top_of_stack_add]
                 self.reg[self.sp] += 1
                 # store in the PC
                 self.pc = return_address
 
-                # SPRINT CHALLENGE is conditional jumps: need this to be Turing Complete
+            elif instruction == CMP:
+                if self.reg[operand_a] == self.reg[operand_b]:
+                    self.fl = 1
+                else:
+                    self.fl = 0
+                self.pc += 3
+
+            elif instruction == JMP:
+                self.pc = self.reg[operand_a]
+
+            elif instruction == JEQ:
+                if self.fl == 1:
+                    self.pc = self.reg[operand_a]
+                else:
+                    self.pc += 2
+
+            elif instruction == JNE:
+                if self.fl == 0:
+                    self.pc = self.reg[operand_a]
+                else:
+                    self.pc += 2
 
             elif instruction == HLT:
                 # halt the CPU (and exit the emulator)

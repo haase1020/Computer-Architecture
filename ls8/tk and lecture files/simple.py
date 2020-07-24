@@ -57,7 +57,7 @@ registers[7] = 0xF4
 
 # CALL:
 # tell CALL which register we put address in
-# push commandy after CALL onto the stack
+# push command after CALL onto the stack
 # then look at register, jump to that address
 
 # run whatever command are there

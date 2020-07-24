@@ -96,3 +96,11 @@ F3: [00000000]
 
 
 * Subroutine --> another name for a function
+
+
+SPRINT CHALLENGE
+3 questions - bitwise (bitwise AND), conversion, question on function implementations
+4 implementations
+all code working - 15 points
+
+21 points total
